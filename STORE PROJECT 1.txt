@@ -1,0 +1,110 @@
+#include <iostream>
+#include <ctime>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+//declare global variables
+char item;
+char store = 'Y';
+float item1=540, item2=260 , item3=85, item4=65, item5=210, payment, change, subtotal, total;
+int numofItems, chosenItem;
+time_t now = time(0);
+char* dt = ctime(&now);
+//declare functions
+char iItem(){
+    char item;
+    cout<<"\n" <<"Enter Option (C/M): ";
+    cin>> item;
+    return item;
+}
+int cItem(){
+    int chosenItem;
+    cout <<"Which CPU would you like to purchase?(1/2/3): ";
+    cin >> chosenItem;
+    return chosenItem;
+}
+int mItem(){
+    int chosenItem;
+    cout <<"Which Motherbaord would you like to purchase?(1/2): ";
+    cin >> chosenItem;
+    return chosenItem;
+}
+int nItem(){
+    int numofItems;
+    cout<<"How many items would you like to purchase?: ";
+    cin>> numofItems;
+    return numofItems;
+}
+float pay(){
+    float payment;
+    cout<<"Please enter your amount of cash: ";
+    cin >> payment;
+    return payment;
+}
+//function for THE OFFICIAL RECEIPT
+void receipt(int item){
+    subtotal = numofItems*item;
+    total = subtotal;
+        if (payment <total){
+            cout << "\n"<< "YOUR PAYMENT IS NOT ENOUGH! PLEASE TRY AGAIN AND ENTER THE RIGHT AMOUNT OF YOUR PURCHASE."<<"\n"<<"\n";
+            }else if (payment >= total) {
+                cout <<"\n"<< "----------OFFICIAL RECEIPT----------"<< "\n" << "\n"<<endl;
+                cout<<"Quantity of items          "<< numofItems <<endl;
+                cout<<"Subtotal                  "<< subtotal << setprecision(2)<< fixed<<endl;
+                cout<<"Total                     "<< total<< setprecision(2)<< fixed <<endl;
+                cout<<"Payment                   "<< payment <<endl;
+                change = payment - total;
+                cout<<"Change                    "<< change << setprecision(2)<< fixed<<endl;
+                cout <<"\n" << "Date: " << dt << endl;
+            }
+}
+
+int main()
+{   
+    //Start of Program
+    cout<<"Welcome to KOBE AND FERNANDO'S COMPUTER SHOP!"<<"\n"<<"\n"<<"Please follow the choices being asked for a smooth flow of shopping"<<"\n";
+    
+    while (store == 'Y'|| store == 'y'){
+        cout<< "\n"<<"C-CPUs | M-Motherboard"<<"\n"<< "\n";
+        cout<<"--------------------------------CPU---------------------------------------------------"<<"\n"<<"\n"<<"1 - ($540) RYZEN | 2 - ($260) INTEL CORE I7 | 3 - ($85) INTEL CORE I3 " << "\n";
+        cout<<"\n" <<"-------------------------------------Motherboards-------------------------------------"<<"\n"<<"\n"<<"1 - ($65) ASRock B450M PRO4 MicroATX |2 - ($210) SUS ROG Strix Z390-I Gaming Mini-ITX " << "\n";
+        item = iItem();
+    
+        switch (item){       
+            case 'C':
+            case 'c':
+                chosenItem=cItem();
+                numofItems=nItem();
+                payment=pay();
+                if (chosenItem == 1){
+                receipt(item1);
+                }
+                else if (chosenItem == 2){
+                receipt(item2);
+                } 
+                else if (chosenItem == 3){
+                receipt(item3);
+                }
+            break;
+            case 'M':
+            case 'm':
+                chosenItem=mItem();
+                numofItems=nItem();
+                payment=pay();
+                if (chosenItem == 1){
+                receipt(item4);
+                } 
+                else if (chosenItem == 2){
+                receipt(item5);
+                break;
+                default:
+                cout <<"\n"<< "Please enter C for CPU or M for Motherboard." <<"\n"<< endl;
+                }
+        }
+        cout << "Would you like to continue purchasing from our store? (Y/N): ";
+        cin >> store;
+    }   cout <<"\n"<< "Thank you for shopping please visit us again!";
+    return 0;
+}
